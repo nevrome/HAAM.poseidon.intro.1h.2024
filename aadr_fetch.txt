@@ -1,0 +1,4 @@
+*AADR_v54_1_p1_1240K_BeyondAncient-0.1.3*
+*AADR_v54_1_p1_1240K_EuropeAncient-0.1.3*
+*AADR_v54_1_p1_1240K_Modern-0.1.3*
+*AADR_v54_1_p1_HO_Modern_not_in_1240K-0.1.1*

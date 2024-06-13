@@ -1,9 +1,6 @@
 library(magrittr)
 
-system("trident fetch -d aadr-archive --downloadAll --archive aadr-archive")
-
-aadr_archive <- janno::read_janno("aadr-archive", validate = F)
-
+# compile a list of requested individuals
 requested_inds <- readr::read_lines(file = "IDselectionDay3.txt", skip = 1)
 
 requested_inds_cleaned <- requested_inds %>%
@@ -17,6 +14,11 @@ requested_inds_cleaned <- requested_inds %>%
   ) %>%
   unique()
 
+# download an exact version the AADR dataset
+system("trident fetch -d aadr-archive --fetchFile aadr_fetch.txt --archive aadr-archive")
+
+aadr_archive <- janno::read_janno("aadr-archive", validate = F)
+
 aadr_archive_simple <- aadr_archive %>%
   dplyr::transmute(
     Poseidon_ID,
@@ -25,6 +27,7 @@ aadr_archive_simple <- aadr_archive %>%
     first_publication = purrr::map_chr(Publication, \(x) x[1])
   )
 
+# determine AADR samples by requested individuals
 requested_samples <- dplyr::semi_join(
   aadr_archive_simple,
   requested_inds_cleaned,
@@ -35,6 +38,10 @@ requested_samples <- dplyr::semi_join(
   )
 )
 
+# compile forge file with the relevant samples
 requested_samples$Poseidon_ID %>%
   paste0("<", ., ">") %>%
   readr::write_lines(file = "forge_list.txt")
+
+# forge the desired dataset
+system("trident forge -d aadr-archive --forgeFile forge_list.txt --intersect -o day3")
