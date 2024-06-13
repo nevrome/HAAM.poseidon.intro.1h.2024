@@ -1,8 +1,10 @@
 library(magrittr)
 
-aadr_archive <- janno::read_janno("~/agora/aadr-archive/", validate = F)
+system("trident fetch -d aadr-archive --downloadAll --archive aadr-archive")
 
-requested_inds <- readr::read_lines(file = "~/Downloads/IDselectionDay3.txt", skip = 1)
+aadr_archive <- janno::read_janno("aadr-archive", validate = F)
+
+requested_inds <- readr::read_lines(file = "IDselectionDay3.txt", skip = 1)
 
 requested_inds_cleaned <- requested_inds %>%
   stringr::str_split(pattern = " ") %>%
