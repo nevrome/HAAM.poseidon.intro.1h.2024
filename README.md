@@ -111,7 +111,7 @@ trident validate -d aadr_subset
 
 ### Downloading data from the public Poseidon archives
 
-1. Exploring data available on the server
+1. Explore data available on the server
 
 ```bash
 # using list with the Poseidon server
@@ -128,7 +128,7 @@ trident list --remote --individuals -j Country
 > [!TIP]
 > We also built a little website to browse this data directly: https://www.poseidon-adna.org/#/archive_explorer
 
-2. Downloading packages from the server
+2. Download packages from the server
 
 ```bash
 # the fetch subcommand
@@ -142,7 +142,7 @@ trident list -d . --packages
 
 ### Exploring Poseidon datasets
 
-1. Querying context information with qjanno
+1. Query context information with qjanno
 
 qjanno allows to query one or multiple .janno files with SQLite syntax.
 
@@ -171,7 +171,7 @@ LIMIT 3 \
 "
 ```
 
-2. Reading .janno files into R
+2. Read .janno files into R
 
 The janno R package allows to load .janno files into clean tibble-derived tables.
 
