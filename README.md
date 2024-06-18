@@ -26,7 +26,7 @@ The following steps introduce some of the core features of the Poseidon software
 cd /vol/volume/poseidon/
 ```
 
-2. Inspect the Poseidon package with standard command line tools
+2. Inspect a Poseidon package with standard command line tools
 
 ```bash
 # the package files
@@ -42,22 +42,97 @@ less day3_pkg/day3.bib
 less day3_pkg/day3.janno
 ```
 
-3. Use Poseidon's software tools to inspect the package
+3. Use `trident` to inspect the package
 
 ```bash
 # trident's command line documentation
 trident
 trident list
 # the list subcommand for local packages
-trident list -d day3_pkg/ --packages
-trident list -d day3_pkg/ --packages
-trident list -d day3_pkg/ --individuals | head
+trident list -d day3_pkg --packages
+trident list -d day3_pkg --packages
+trident list -d day3_pkg --individuals | head
 # the summarise subcommand
-trident summarise -d .
+trident summarise -d day3_pkg
 # the survey subcommand
-trident survey -d .
+trident survey -d day3_pkg
 ```
 
 Note that this package is compiled from the Poseidon aadr-archive, which mirrors the AADR dataset and has some special properties. The AADR .anno columns don't map perfectly to the Poseidon .janno columns.
 
+### Creating a package as a subset of another one
+
+1. Create a scratch directory for experiments
+
+```bash
+mkdir scratch
+```
+
+2. Create a new package with `trident forge`
+
+```bash
+# command line documentation
+trident forge
+# the forge subcommand
+trident forge -d day3_pkg -f "Mbuti.HO, Russia_Samara_EBA_Yamnaya" -o scratch/aadr_subset
+```
+
+This runs for about 1 min.
+
+3. Inspect the result
+
+```bash
+cd scratch
+ls aadr_subset
+trident list -d aadr_subset --individuals
+```
+
+4. Validate and modify the package
+
+```bash
+# the validate subcommand
+trident validate -d aadr_subset
+# add the missing contributor field
+nano aadr_subset/POSEIDON.yml
+```
+
+```
+contributor:
+  - name: Clemens Schmid
+    email: clemens_schmid@eva.mpg.de
+```
+
+```bash
+trident validate -d aadr_subset
+```
+
+### Downloading data from the public Poseidon archives
+
+1. Exploring data available on the server
+
+```bash
+# using list with the Poseidon server
+trident list
+trident list --remote --packages
+# different archives
+trident list --remote --packages --archive community-archive
+trident list --remote --packages --archive aadr-archive
+# individual information with .janno fields
+trident list --remote --individuals
+trident list --remote --individuals -j Country
+```
+
+We also built a little website to browse this data directly: https://www.poseidon-adna.org/#/archive_explorer
+
+2. Downloading packages from the server
+
+```bash
+# the fetch subcommand
+trident fetch
+trident fetch -d . -f "<Iceman.SG>,Austria_EN_LBK,Croatia_Mesolithic_HG"
+ls
+trident list -d . --packages
+```
+
+`fetch` always downloads all packages that contain any entity in the `-f` argument.
 
