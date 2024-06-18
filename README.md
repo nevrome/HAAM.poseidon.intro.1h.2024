@@ -131,7 +131,7 @@ We also built a little website to browse this data directly: https://www.poseido
 ```bash
 # the fetch subcommand
 trident fetch
-trident fetch -d . -f "<Iceman.SG>,Austria_EN_LBK,Croatia_Mesolithic_HG"
+trident fetch -d . -f "<Chimp.REF>,<Iceman.SG>,Austria_EN_LBK,Croatia_Mesolithic_HG"
 ls
 trident list -d . --packages
 ```
@@ -207,4 +207,39 @@ q()
 ```bash
 # deactivate conda environment again
 conda deactivate
+```
+
+### Running F-statistics with xerxes
+
+xerxes is an analysis tool directly compatible with Poseidon packages
+
+```bash
+xerxes
+xerxes fstats
+# fstats directly on the command line
+xerxes fstats -d . \
+  --stat 'F3(<Iceman.SG>,Austria_EN_LBK,Mbuti.HO)' \
+  --stat 'F3(<Iceman.SG>,Croatia_Mesolithic_HG,Mbuti.HO)' \
+  --stat 'F3(<Iceman.SG>,Russia_Samara_EBA_Yamnaya,Mbuti.HO)'
+```
+
+```bash
+nano f3.config
+```
+
+```yml
+groupDefs:
+  EarlyFarmer: ["Austria_EN_LBK"]
+  HunterGatherer: ["Croatia_Mesolithic_HG"]
+  Steppe: ["Russia_Samara_EBA_Yamnaya"]
+fstats:
+- type: F3
+  a: ["<Iceman.SG>"]
+  b: ["EarlyFarmer", "HunterGatherer", "Steppe"]
+  c: ["Mbuti.HO"]
+```
+
+```bash
+# with a configuration file
+xerxes fstats -d . --statConfig f3.config
 ```
