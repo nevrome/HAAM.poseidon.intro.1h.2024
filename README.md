@@ -87,6 +87,8 @@ ls aadr_subset
 trident list -d aadr_subset --individuals
 ```
 
+Trident is extensively documented here: https://www.poseidon-adna.org/#/trident
+
 4. Validate and modify the package
 
 ```bash
@@ -135,4 +137,38 @@ trident list -d . --packages
 ```
 
 `fetch` always downloads all packages that contain any entity in the `-f` argument.
+
+### Exploring Poseidon datasets
+
+1. Querying context information with qjanno
+
+qjanno allows to query one or multiple .janno files with SQLite syntax.
+
+```bash
+# help text
+qjanno -h
+# multiple columns from one .janno file
+qjanno "SELECT Poseidon_ID,Country FROM aadr_subset/aadr_subset.janno"
+# available columns?
+qjanno "SELECT * FROM aadr_subset/aadr_subset.janno" -c
+# multiple .janno files at once
+qjanno "SELECT package_title,Poseidon_ID,Country FROM d(.)"
+# filtering
+qjanno " \
+SELECT Poseidon_ID,Country \
+FROM d(.) \
+WHERE Country IN ('Poland','Italy') \
+"
+# grouping and ordering
+qjanno " \
+SELECT Country,count(*),min(Nr_SNPs) \
+FROM d(.) \
+GROUP BY Country \
+ORDER BY min(Nr_SNPs) \
+LIMIT 3 \
+"
+```
+
+
+
 
