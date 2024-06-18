@@ -58,7 +58,8 @@ trident summarise -d day3_pkg
 trident survey -d day3_pkg
 ```
 
-Note that this package is compiled from the Poseidon aadr-archive, which mirrors the AADR dataset and has some special properties. The AADR .anno columns don't map perfectly to the Poseidon .janno columns.
+> [!NOTE] 
+> This package is compiled from the Poseidon aadr-archive, which mirrors the AADR dataset and has some special properties. The AADR .anno columns don't map perfectly to the Poseidon .janno columns.
 
 ### Creating a package as a subset of another one
 
@@ -124,7 +125,8 @@ trident list --remote --individuals
 trident list --remote --individuals -j Country
 ```
 
-We also built a little website to browse this data directly: https://www.poseidon-adna.org/#/archive_explorer
+> [!TIP]
+> We also built a little website to browse this data directly: https://www.poseidon-adna.org/#/archive_explorer
 
 2. Downloading packages from the server
 
@@ -244,6 +246,9 @@ fstats:
 xerxes fstats -d . --statConfig f3.config
 ```
 
+***
+
 ### Poseidon needs you!
 
-The [public archives](https://www.poseidon-adna.org/#/archive_overview) need constant investment in data updates and maintenance. Please consider contributing!
+> [!IMPORTANT]
+> The [public archives](https://www.poseidon-adna.org/#/archive_overview) need constant investment in data updates and maintenance. Please consider contributing!
