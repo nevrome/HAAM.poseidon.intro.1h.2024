@@ -215,6 +215,8 @@ conda deactivate
 
 xerxes is an analysis tool directly compatible with Poseidon packages
 
+1. Run xerxes directly on the command line
+
 ```bash
 xerxes
 xerxes fstats
@@ -224,6 +226,8 @@ xerxes fstats -d . \
   --stat 'F3(<Iceman.SG>,Croatia_Mesolithic_HG,Mbuti.HO)' \
   --stat 'F3(<Iceman.SG>,Russia_Samara_EBA_Yamnaya,Mbuti.HO)'
 ```
+
+2. Use a configuration file
 
 ```bash
 nano f3.config
