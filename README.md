@@ -169,6 +169,42 @@ LIMIT 3 \
 "
 ```
 
+2. Reading .janno files into R
 
+The janno R package allows to load .janno files into clean tibble-derived tables.
 
+```bash
+# load the conda environment with the janno R package
+conda activate poseidon
+# start an R session
+R
+```
 
+```r
+# read all .janno files
+janno::read_janno(".")
+
+# read one .janno file
+j <- janno::read_janno("2012_KellerNatureCommunications-2.1.1")
+
+# transform janno object to a spatial object
+j_sf <- sf::st_as_sf(j, coords = c("Longitude", "Latitude"), crs = 4326)
+
+# download mapping data
+world <- rnaturalearth::ne_download()
+
+# plot sample positions
+library(ggplot2)
+ggplot() +
+  geom_sf(data = world) +
+  geom_sf(data = j_sf, color = "red") +
+  coord_sf(xlim = c(-15,40), ylim = c(35, 60))
+  
+# close R session
+q()
+```
+
+```bash
+# deactivate conda environment again
+conda deactivate
+```
