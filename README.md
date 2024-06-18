@@ -243,3 +243,7 @@ fstats:
 # with a configuration file
 xerxes fstats -d . --statConfig f3.config
 ```
+
+### Poseidon needs you!
+
+The [public archives](https://www.poseidon-adna.org/#/archive_overview) need constant investment in data updates and maintenance. Please consider contributing!
