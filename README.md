@@ -250,9 +250,43 @@ fstats:
 xerxes fstats -d . --statConfig f3.config
 ```
 
-***
-
 ### Poseidon needs you!
 
 > [!IMPORTANT]
 > The [public archives](https://www.poseidon-adna.org/#/archive_overview) need constant investment in data updates and maintenance. Please consider contributing!
+
+### Exercises
+
+1. Create a new package `latviaHG` with `trident forge` that includes all individuals from the group `Latvia_HG`, but explicitly excludes the sample `<I4439>`.
+
+> [!TIP]
+> You can find the documentation for `forge` here: https://www.poseidon-adna.org/#/trident?id=forge-command.
+> The forge selection language also allows exclusion patterns, which is documented there.
+
+<details>
+  <summary>Possible solution</summary>
+  ```bash
+  trident forge -d . -f "Latvia_HG,-<I4439>" -o latviaHG
+  ```
+</details>
+
+2. Determine the number of samples in the `latviaHG` package.
+
+<details>
+  <summary>Possible solution</summary>
+  ```bash
+  wc -l latviaHG/latviaHG.fam
+  ```
+</details>
+
+3. Determine the median age of the oldest sample in the `latviaHG` package.
+
+> [!TIP]
+> You can find a short definition of the individual .janno columns here: https://github.com/poseidon-framework/poseidon-schema/blob/master/janno_columns.tsv
+> More extensive documentation on the `Date_*` columns is available here: https://www.poseidon-adna.org/#/janno_details?id=temporal-position
+
+<details>
+  ```bash
+  qjanno "SELECT min(Date_BC_AD_Median) FROM d(latviaHG)"
+  ```
+</details>
