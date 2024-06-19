@@ -250,6 +250,8 @@ fstats:
 xerxes fstats -d . --statConfig f3.config
 ```
 
+***
+
 ### Poseidon needs you!
 
 > [!IMPORTANT]
@@ -265,18 +267,14 @@ xerxes fstats -d . --statConfig f3.config
 
 <details>
   <summary>Possible solution</summary>
-  ```bash
   trident forge -d . -f "Latvia_HG,-<I4439>" -o latviaHG
-  ```
 </details>
 
 2. Determine the number of samples in the `latviaHG` package.
 
 <details>
   <summary>Possible solution</summary>
-  ```bash
   wc -l latviaHG/latviaHG.fam
-  ```
 </details>
 
 3. Determine the median age of the oldest sample in the `latviaHG` package.
@@ -286,7 +284,6 @@ xerxes fstats -d . --statConfig f3.config
 > More extensive documentation on the `Date_*` columns is available here: https://www.poseidon-adna.org/#/janno_details?id=temporal-position
 
 <details>
-  ```bash
+  <summary>Possible solution</summary>
   qjanno "SELECT min(Date_BC_AD_Median) FROM d(latviaHG)"
-  ```
 </details>
